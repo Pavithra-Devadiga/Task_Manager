@@ -1,0 +1,267 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #6d6ff4;
+  --secondary: #a855f7;
+  --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --glass: rgba(255, 255, 255, 0.7);
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #eef2ff;
+  background-image: radial-gradient(at 0% 0%, rgba(52, 55, 255, 0.15) 0, transparent 50%), 
+                    radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.15) 0, transparent 50%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+/* Background Decorations */
+.bg-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #5658ef22 0%, #af7cde22 100%);
+  filter: blur(100px);
+  border-radius: 50%;
+  z-index: -1;
+}
+.bg-glow:nth-child(1) { top: -100px; left: -100px; }
+.bg-glow:nth-child(2) { bottom: -100px; right: -100px; }
+
+.app {
+  width: 100%;
+  max-width: 450px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  padding: 35px 30px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+header p {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.header-icon i {
+  font-size: 24px;
+  color: var(--primary);
+  opacity: 0.6;
+}
+
+.todo-input {
+  padding: 0 30px 25px;
+  display: flex;
+  gap: 12px;
+}
+
+.todo-input input {
+  flex: 1;
+  padding: 14px 20px;
+  border: 1px solid rgba(0,0,0,0.05);
+  background: rgba(255,255,255,0.5);
+  border-radius: 16px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.todo-input input:focus {
+  background: white;
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1);
+}
+
+.todo-input button {
+  background: var(--primary);
+  color: white;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+}
+
+.todo-input button:hover {
+  transform: scale(1.05);
+  background: var(--secondary);
+}
+
+.filters {
+  display: flex;
+  padding: 0 30px 15px;
+  gap: 20px;
+}
+
+.filter {
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: 0.3s;
+  position: relative;
+}
+
+.filter.active {
+  color: var(--primary);
+}
+
+.filter.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.todos-container {
+  padding: 10px 20px;
+  min-height: 200px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.todo-item {
+  background: rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+  border: 1px solid transparent;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.todo-item:hover {
+  background: white;
+  border-color: rgba(99, 102, 241, 0.1);
+  transform: translateX(5px);
+}
+
+.checkmark {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%; /* Circular for modern look */
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.todo-checkbox:checked + .checkmark {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+
+.todo-item-text {
+  flex: 1;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.todo-item.completed .todo-item-text {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.delete-btn {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.todo-item:hover .delete-btn {
+  opacity: 1;
+}
+
+footer {
+  padding: 20px 30px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+#items-left {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+#clear-completed {
+  background: none;
+  border: none;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--primary);
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+#clear-completed:hover {
+  opacity: 1;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-muted);
+}
+
+.empty-state i {
+  font-size: 40px;
+  margin-bottom: 10px;
+  display: block;
+  opacity: 0.2;
+}
